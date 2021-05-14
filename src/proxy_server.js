@@ -11,7 +11,6 @@ function randomElement(array) {
 }
 
 function getProxyObject(host, port, login, password) {
-  logger.info(' [getProxyObject] params: ' + JSON.stringify(host, port, login, password));
   return {
     ipaddress: host,
     port: parseInt(port, 10),
