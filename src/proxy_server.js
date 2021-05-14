@@ -1,7 +1,7 @@
 // inspired by https://github.com/asluchevskiy/http-to-socks-proxy
 const util = require('util');
 const url = require('url');
-const http = require('http');
+const https = require('https');
 const fs = require('fs');
 const Socks = require('socks');
 const { logger } = require('./logger');
@@ -11,6 +11,7 @@ function randomElement(array) {
 }
 
 function getProxyObject(host, port, login, password) {
+  logger.info(' [getProxyObject] params: ' + JSON.stringify(host, port, login, password));
   return {
     ipaddress: host,
     port: parseInt(port, 10),
@@ -49,7 +50,7 @@ function requestListener(getProxyInfo, request, response) {
     agent: socksAgent,
   };
 
-  const proxyRequest = http.request(options);
+  const proxyRequest = https.request(options);
 
   request.on('error', (err) => {
     logger.error(`${err.message}`);
@@ -120,7 +121,7 @@ function connectListener(getProxyInfo, request, socketRequest, head) {
 
 function ProxyServer(options) {
   // TODO: start point
-  http.Server.call(this, () => {});
+  https.Server.call(this, () => {});
 
   this.proxyList = [];
 
@@ -150,7 +151,7 @@ function ProxyServer(options) {
   );
 }
 
-util.inherits(ProxyServer, http.Server);
+util.inherits(ProxyServer, https.Server);
 
 ProxyServer.prototype.loadProxy = function loadProxy(proxyLine) {
   try {
