@@ -1,4 +1,4 @@
-# http-proxy-to-socks
+# https-proxy-to-socks
 
 [![build](https://api.travis-ci.org/oyyd/http-proxy-to-socks.svg?branch=master)](https://travis-ci.org/oyyd/http-proxy-to-socks)
 
